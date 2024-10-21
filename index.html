@@ -1,93 +1,83 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>神山町ゴミ分別判断アプリ</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <div class="header-left">
-        </div>
-
-        <!-- モバイル用のヘッダーのメニューアイコン -->
-        <span class="fa fa-bars menu-icon"></span>
-
-        <div class="header-right">
-          <a href="#">お問い合わせ</a>
-          <a href="#">インストール</a>
-          <a href="#" class="login">Q&A</a>
-        </div>
-      </div>
-    </header>
-    <div class="top-wrapper">
-      <div class="container">
-        <h1>神山町ゴミ分別判断アプリ</h1>
-        <p>本アプリでは分別したいごみ等をどのように分別されるのかを簡単に検索することができます</p>
-        <p>また、その他ゴミ捨てに関する様々な便利機能を搭載しています</p>
-        <div class="btn-wrapper">
-          <a href="#" class="btn signup">今すぐダウンロード！</a>
-          <p>or</p>
-          <a href="#" class="btn facebook"><span class="fa fa-facebook"></span>Web版で見る！</a>
-          <a href="#" class="btn twitter"><span class="fa fa-twitter"></span>お問い合わせ</a>
-        </div>
-      </div>
+    <title>神山参加型ドット絵専用掲示板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .post-form {
+            margin-bottom: 20px;
+        }
+        .posts {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .timestamp {
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>神山参加型ドット絵専用掲示板</h1>
+    
+    <!-- 投稿フォーム -->
+    <div class="post-form">
+        <form id="postForm">
+            <label for="postContent">投稿内容:</label><br>
+            <textarea id="postContent" name="content" rows="4" cols="50" placeholder="ここにメッセージを入力してください"></textarea><br>
+            <button type="button" onclick="addPost()">投稿する</button>
+        </form>
     </div>
-    <div class="lesson-wrapper">
-      <div class="container">
-        <div class="heading">
-          <h2>こんな機能があります!</h2>
-        </div>
-        <div class="lessons">
-          <div class="lesson">
-            <div class="lesson-icon">
-              <img src="https://prog-8.com/images/html/advanced/html.png">
-              <p>分別判断</p>
-            </div>
-            <p class="text-contents">検索欄に捨てたいゴミを書き込むだけで回答がすぐさま帰ってきます！</p>
-          </div>
-          <div class="lesson">
-            <div class="lesson-icon">
-              <img src="https://prog-8.com/images/html/advanced/jQuery.png">
-              <p>　</p>
-            </div>
-            <p class="text-contents">　</p>
-          </div>
-          <div class="lesson">
-            <div class="lesson-icon">
-              <img src="https://prog-8.com/images/html/advanced/ruby.png">
-              <p>　</p>
-            </div>
-            <p class="text-contents">　る</p>
-          </div>
-          <div class="lesson">
-            <div class="lesson-icon">
-              <img src="https://prog-8.com/images/html/advanced/php.png">
-              <p>　</p>
-            </div>
-            <p class="text-contents">　</p>
-          </div>
-        </div>
 
-      </div>
+    <!-- 投稿の一覧 -->
+    <div id="postsContainer">
+        <!-- 投稿がここに表示されます -->
     </div>
-    <div class="message-wrapper">
-      <div class="container">
-        <div class="heading">
-          <h2></h2>
-          <h3></h3>
-        </div>
-        <a href="#" class="btn message">今すぐインストール！</a>
-      </div>
-    </div>
-    <footer>
-      <div class="container">
-        <p>ゴミ分別に革新を！</p>
-      </div>
-    </footer>
-  </body>
+
+    <script>
+        // 投稿を追加する関数
+        function addPost() {
+            const content = document.getElementById('postContent').value;
+            if (content.trim() === "") {
+                alert("投稿内容を入力してください");
+                return;
+            }
+
+            const postsContainer = document.getElementById('postsContainer');
+            
+            // 現在の日時を取得
+            const now = new Date();
+            const timestamp = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate() + ' ' 
+                            + now.getHours() + ':' + ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2);
+
+            // 投稿を表示するための要素を作成
+            const postDiv = document.createElement('div');
+            postDiv.className = 'posts';
+            
+            // 投稿内容の表示
+            const contentDiv = document.createElement('div');
+            contentDiv.textContent = content;
+
+            // 日時の表示
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'timestamp';
+            timeDiv.textContent = '投稿日時: ' + timestamp;
+
+            // 投稿内容と日時を一緒に表示
+            postDiv.appendChild(contentDiv);
+            postDiv.appendChild(timeDiv);
+
+            // 投稿を表示
+            postsContainer.appendChild(postDiv);
+            
+            // フォームをリセット
+            document.getElementById('postForm').reset();
+        }
+    </script>
+</body>
 </html>
