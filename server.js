@@ -46,3 +46,7 @@ app.listen(port, () => {
 
 const cors = require('cors');
 app.use(cors());
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log('MongoDB接続エラー:', err));
